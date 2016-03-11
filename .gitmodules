@@ -1,0 +1,3 @@
+[submodule "ptftpd"]
+	path = ptftpd
+	url = https://github.com/mpetazzoni/ptftpd.git
