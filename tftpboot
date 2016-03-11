@@ -1,0 +1,17 @@
+#!/bin/bash
+
+source $EMB_LINUX_SCRIPTDIR_PATH/common/load_cfg.sh
+source $EMB_LINUX_SCRIPTDIR_PATH/common/tty_screen.sh
+$EMB_LINUX_SCRIPTDIR_PATH/common/tftp_server.sh
+# bha, maybe someone, somewhere, will need somewhat like this..
+# ..or probably something better than this crap..
+sleep 0.2
+
+UBOOT=$EMB_LINUX_SCRIPTDIR_PATH/common/uboot_put.sh
+
+UBOOT_INIT_TFTP="setenv ipaddr $TFTP_REMOTE_IP"
+UBOOT_LOAD_DTB="tftpboot $UBOOT_DTB_LOADADDR $TFTP_LOCAL_IP:arch/$ARCH/boot/dts/$DTB_FILE"
+UBOOT_LOAD_IMAGE="tftpboot $UBOOT_IMAGE_LOADADDR $TFTP_LOCAL_IP:arch/$ARCH/boot/zImage"
+UBOOT_BOOTSTRAP="bootz $UBOOT_IMAGE_LOADADDR - $UBOOT_DTB_LOADADDR"
+
+$UBOOT "$UBOOT_PRE_CMD;$UBOOT_INIT_TFTP;$UBOOT_LOAD_DTB;$UBOOT_LOAD_IMAGE;$UBOOT_BOOTSTRAP"

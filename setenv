@@ -1,0 +1,4 @@
+MY_PATH=`realpath "${BASH_SOURCE[@]}"`
+EMB_LINUX_SCRIPTDIR_PATH=`rev <<< $MY_PATH |cut - -d'/' -f 2- |rev`
+export EMB_LINUX_SCRIPTDIR_PATH
+export PATH=$PATH:$EMB_LINUX_SCRIPTDIR_PATH

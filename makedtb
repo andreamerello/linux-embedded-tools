@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source $EMB_LINUX_SCRIPTDIR_PATH/common/load_cfg.sh
+make $DTB_FILE
+#V=1
