@@ -4,7 +4,15 @@ source $EMB_LINUX_SCRIPTDIR_PATH/common/load_cfg.sh
 source $EMB_LINUX_SCRIPTDIR_PATH/common/tty_screen.sh
 source $EMB_LINUX_SCRIPTDIR_PATH/common/ip.sh
 
-SCP_CMD="scp *.ko $SSH_REMOTE_USER@$ETH_REMOTE_ADDR:/$REMOTE_MOD_PATH"
+if [ $# != 2 ]; then
+    KO="*.ko"
+    echo "uploading: `ls $KO`"
+else
+    KO=$2
+    echo "uploading: $2"
+fi
+
+SCP_CMD="scp $KO $SSH_REMOTE_USER@$ETH_REMOTE_ADDR:/$REMOTE_MOD_PATH"
 
 if [ ! -z "$SSH_REMOTE_PASSWORD" ]; then
     sshpass -p $SSH_REMOTE_PASSWORD $SCP_CMD

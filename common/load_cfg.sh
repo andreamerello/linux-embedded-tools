@@ -2,7 +2,7 @@
 CFG_DIR=$EMB_LINUX_SCRIPTDIR_PATH/conf
 CFG_FILE=$CFG_DIR/$1.conf
 
-if [ $# != 1 ] || [ ! -f $CFG_FILE ]; then
+if [ $# -lt 1 ] || [ ! -f $CFG_FILE ]; then
     echo "Please specify target name"
     echo "valid targets are:"
     for f in $CFG_DIR/*.conf; do
