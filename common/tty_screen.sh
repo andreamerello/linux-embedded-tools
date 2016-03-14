@@ -10,7 +10,7 @@ tty_put() {
 
 if ! find_screen $TARGET_NAME; then
     sudo chmod 777 $TTY_DEV
-    screen -h 10000 -d -m -S zynq $TTY_DEV $TTY_BAUD
+    screen -h 10000 -d -m -S $TARGET_NAME $TTY_DEV $TTY_BAUD
 fi
 
 if ! find_screen $TARGET_NAME; then
