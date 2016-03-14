@@ -33,7 +33,7 @@ Setup
 
 Basically you need:
 
-- the usual stuff for kernel cross-compiling, bash with the usual unix tools, screen, python, python-netifaces, and maybe other stuff that I have already installed on my box, and that I'm forgetting to mention right now..
+- the usual stuff for kernel cross-compiling, bash with the usual unix tools, screen, python, python-netifaces, sshpass, and maybe other stuff that I have already installed on my box, and that I'm forgetting to mention right now..
 
 - to clone this repo (with care for git submodules!) :)
 
