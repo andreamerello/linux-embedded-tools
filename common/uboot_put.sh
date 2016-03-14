@@ -9,7 +9,7 @@ CMD=$1
 #echo $CMD
 let CHUNK_LEN1=$CHUNK_LEN
 while [ -n "$CMD" ]; do
-    tty_put "${CMD:1:$CHUNK_LEN}"
+    tty_put "${CMD:0:$CHUNK_LEN}"
     CMD="${CMD:$CHUNK_LEN1}"
 
     sleep 0.05
