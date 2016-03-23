@@ -1,0 +1,19 @@
+#!/bin/bash
+
+source $EMB_LINUX_SCRIPTDIR_PATH/common/load_cfg.sh
+source $EMB_LINUX_SCRIPTDIR_PATH/common/tty_screen.sh
+source $EMB_LINUX_SCRIPTDIR_PATH/common/ip.sh
+
+if [ $# != 2 ]; then
+    echo "usage:"
+    echo "$0 <confname> <path>"
+    exit 1
+fi
+
+SCP_CMD="scp $SSH_REMOTE_USER@$ETH_REMOTE_ADDR:/$2 ."
+
+if [ ! -z "$SSH_REMOTE_PASSWORD" ]; then
+    sshpass -p $SSH_REMOTE_PASSWORD $SCP_CMD
+else
+    $SCP_CMD
+fi
