@@ -1,0 +1,18 @@
+#!/bin/bash
+
+source $EMB_LINUX_SCRIPTDIR_PATH/common/load_cfg.sh
+source $EMB_LINUX_SCRIPTDIR_PATH/common/tty_screen.sh
+source $EMB_LINUX_SCRIPTDIR_PATH/common/ip.sh
+
+DTB=arch/$ARCH/boot/dts/$DTB_FILE
+KERN=arch/$ARCH/boot/$KERNEL_IMAGE
+echo Uploading:
+echo $DTB
+echo $KERN
+SCP_CMD="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $DTB $KERN $SSH_REMOTE_USER@$ETH_REMOTE_ADDR:/boot/"
+#echo $SCP_CMD
+if [ ! -z "$SSH_REMOTE_PASSWORD" ]; then
+    sshpass -p $SSH_REMOTE_PASSWORD $SCP_CMD
+else
+    $SCP_CMD
+fi
