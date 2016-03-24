@@ -12,7 +12,7 @@ else
     echo "uploading: $2"
 fi
 
-SCP_CMD="scp $KO $SSH_REMOTE_USER@$ETH_REMOTE_ADDR:/$REMOTE_MOD_PATH"
+SCP_CMD="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $KO $SSH_REMOTE_USER@$ETH_REMOTE_ADDR:/$REMOTE_MOD_PATH"
 
 if [ ! -z "$SSH_REMOTE_PASSWORD" ]; then
     sshpass -p $SSH_REMOTE_PASSWORD $SCP_CMD
