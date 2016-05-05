@@ -1,0 +1,27 @@
+#!/bin/bash
+
+source $EMB_LINUX_SCRIPTDIR_PATH/common/load_cfg.sh
+source $EMB_LINUX_SCRIPTDIR_PATH/common/tty_screen.sh
+source $EMB_LINUX_SCRIPTDIR_PATH/common/ip.sh
+$EMB_LINUX_SCRIPTDIR_PATH/common/tftp_server.sh
+# bha, maybe someone, somewhere, will need somewhat like this..
+# ..or probably something better than this crap..
+sleep 0.2
+
+UBOOT=$EMB_LINUX_SCRIPTDIR_PATH/common/uboot_put.sh
+
+if [ $# != 2 ]; then
+    FILE="bitstream.bit"
+    echo "uploading: `ls $FILE`"
+else
+    FILE=$2
+    echo "uploading: $2"
+fi
+
+SIZE=`du -b $FILE | cut -f 1`
+UBOOT_INIT_TFTP="setenv ipaddr $ETH_REMOTE_ADDR"
+UBOOT_INIT_TFTP2="setenv serverip $ETH_LOCAL_ADDR"
+UBOOT_LOAD_FPGA="tftpboot $UBOOT_FPGA_LOADADDR $ETH_LOCAL_ADDR:$FILE"
+UBOOT_PROGRAM_FPGA="fpga loadb 0 $UBOOT_FPGA_LOADADDR $SIZE"
+
+$UBOOT "$UBOOT_PRE_CMD;$UBOOT_INIT_TFTP;$UBOOT_INIT_TFTP2;$UBOOT_LOAD_FPGA;$UBOOT_PROGRAM_FPGA"
