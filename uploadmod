@@ -6,9 +6,13 @@ source $EMB_LINUX_SCRIPTDIR_PATH/common/ip.sh
 
 if [ $# -ge 2 ]; then
     KOS=""
+    first=1
     for KO in "$@"
     do
-	KOS="$KOS `find -name $KO.ko`"
+	if [ $first == 0 ]; then
+	    KOS="$KOS `find -name $KO.ko`"
+	fi
+	first=0
     done
 else
     KOS=`find -name "*.ko"`
