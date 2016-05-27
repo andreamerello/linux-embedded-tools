@@ -1,0 +1,23 @@
+#!/bin/bash
+
+source $EMB_LINUX_SCRIPTDIR_PATH/common/load_cfg.sh
+source $EMB_LINUX_SCRIPTDIR_PATH/common/tty_screen.sh
+source $EMB_LINUX_SCRIPTDIR_PATH/common/ip.sh
+
+if [ $# != 2 ]; then
+    echo "usage:"
+    echo "$0 <file>"
+
+    exit -1
+fi
+
+echo "uploading:"
+echo "$2"
+
+SCP_CMD="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $2 $SSH_REMOTE_USER@$ETH_REMOTE_ADDR:/$REMOTE_MOD_PATH"
+
+if [ ! -z "$SSH_REMOTE_PASSWORD" ]; then
+    sshpass -p $SSH_REMOTE_PASSWORD $SCP_CMD
+else
+    $SCP_CMD
+fi
