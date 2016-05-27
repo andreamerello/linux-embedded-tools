@@ -4,15 +4,20 @@ source $EMB_LINUX_SCRIPTDIR_PATH/common/load_cfg.sh
 source $EMB_LINUX_SCRIPTDIR_PATH/common/tty_screen.sh
 source $EMB_LINUX_SCRIPTDIR_PATH/common/ip.sh
 
-if [ $# != 2 ]; then
-    KO="*.ko"
-    echo "uploading: `ls $KO`"
+if [ $# -ge 2 ]; then
+    KOS=""
+    for KO in "$@"
+    do
+	KOS="$KOS `find -name $KO.ko`"
+    done
 else
-    KO=$2
-    echo "uploading: $2"
+    KOS=`find -name "*.ko"`
 fi
 
-SCP_CMD="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $KO $SSH_REMOTE_USER@$ETH_REMOTE_ADDR:/$REMOTE_MOD_PATH"
+echo "uploading:"
+echo "$KOS"
+
+SCP_CMD="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $KOS $SSH_REMOTE_USER@$ETH_REMOTE_ADDR:/$REMOTE_MOD_PATH"
 
 if [ ! -z "$SSH_REMOTE_PASSWORD" ]; then
     sshpass -p $SSH_REMOTE_PASSWORD $SCP_CMD
