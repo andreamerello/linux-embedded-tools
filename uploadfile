@@ -14,7 +14,7 @@ fi
 echo "uploading:"
 echo "$2"
 
-SCP_CMD="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $2 $SSH_REMOTE_USER@$ETH_REMOTE_ADDR:/$REMOTE_MOD_PATH"
+SCP_CMD="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -P $SSH_REMOTE_PORT $2 $SSH_REMOTE_USER@$ETH_REMOTE_ADDR:/$REMOTE_MOD_PATH"
 
 if [ ! -z "$SSH_REMOTE_PASSWORD" ]; then
     sshpass -p $SSH_REMOTE_PASSWORD $SCP_CMD

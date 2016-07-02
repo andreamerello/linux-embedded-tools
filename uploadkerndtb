@@ -9,7 +9,7 @@ KERN=arch/$ARCH/boot/$KERNEL_IMAGE
 echo Uploading:
 echo $DTB
 echo $KERN
-SCP_CMD="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $DTB $KERN $SSH_REMOTE_USER@$ETH_REMOTE_ADDR:/boot/"
+SCP_CMD="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -P $SSH_REMOTE_PORT $DTB $KERN $SSH_REMOTE_USER@$ETH_REMOTE_ADDR:/boot/"
 #echo $SCP_CMD
 if [ ! -z "$SSH_REMOTE_PASSWORD" ]; then
     sshpass -p $SSH_REMOTE_PASSWORD $SCP_CMD

@@ -10,7 +10,7 @@ if [ $# != 2 ]; then
     exit 1
 fi
 
-SCP_CMD="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $SSH_REMOTE_USER@$ETH_REMOTE_ADDR:/$2 ."
+SCP_CMD="scp -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -P $SSH_REMOTE_PORT $SSH_REMOTE_USER@$ETH_REMOTE_ADDR:/$2 ."
 
 if [ ! -z "$SSH_REMOTE_PASSWORD" ]; then
     sshpass -p $SSH_REMOTE_PASSWORD $SCP_CMD
