@@ -76,16 +76,17 @@ Config files
 The config file contains several <KEY>=<value> lines.
 They are basically treated as bash variables assignes.
 
-general
+### general ###
 
 **TARGET_NAME** - optional name to identify the board for which this config file is for
 
-serial communications
+### serial communications ###
+
 **TTY_DEV** - specify the path of the tty interface. ex */dev/ttyUSB0*
 
 **TTY_BAUD** - self-explanatory :)
 
-kernel build params
+### kernel build params ###
 
 **ARCH** - the ARCH for which we compile the kernel ex. *arm*, *arm64*)
 
@@ -99,7 +100,7 @@ kernel build params
 
 **KCONFIG** - optional file name for the kernel config. If present the scirpts will automatically configure the kernel when required. The file name is searched in the top level of the kernel tree. If a git-branch specific file (siffixed with -<branch>) is present, then it takes precendence.
 
-ssh stuff
+### ssh stuff ###
 
 **SSH_REMOTE_USER** - self explanatory :)
 
@@ -117,7 +118,7 @@ ethernet config
 
 **ETH_REMOTE_ADDR** - specifies the target IP address. U-Boot is forced via serial to use this address, but it is assumed that the target filesystem already configures the interface for it.
 
-u-boot addresses
+### u-boot addresses ###
 
 **UBOOT_IMAGE_LOADADDR** - self explanatory. ex. *0x01000000*
 
