@@ -1,5 +1,8 @@
 #!/bin/bash
 source $EMB_LINUX_SCRIPTDIR_PATH/common/load_cfg.sh
+
 $EMB_LINUX_SCRIPTDIR_PATH/common/store_kdir.sh
+
 #echo $KERNEL_IMAGE EXTRAVERSION=-$TARGET_NAME $KERNEL_MAKE_EXTRA -j`nproc`
+$EMB_LINUX_SCRIPTDIR_PATH/common/kconfig.sh
 make $KERNEL_IMAGE zImage modules EXTRAVERSION=-$TARGET_NAME $KERNEL_MAKE_EXTRA -j`nproc`
