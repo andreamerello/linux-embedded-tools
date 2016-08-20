@@ -1,3 +1,5 @@
 #!/bin/bash
 source $EMB_LINUX_SCRIPTDIR_PATH/common/load_cfg.sh
+
+$EMB_LINUX_SCRIPTDIR_PATH/common/kconfig.sh
 make menuconfig -j`nproc`
