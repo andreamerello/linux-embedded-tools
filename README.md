@@ -77,35 +77,54 @@ The config file contains several <KEY>=<value> lines.
 They are basically treated as bash variables assignes.
 
 general
+
 **TARGET_NAME** - optional name to identify the board for which this config file is for
 
 serial communications
 **TTY_DEV** - specify the path of the tty interface. ex */dev/ttyUSB0*
+
 **TTY_BAUD** - self-explanatory :)
 
 kernel build params
+
 **ARCH** - the ARCH for which we compile the kernel ex. *arm*, *arm64*)
+
 **CROSS_COMPILE** - prefix for the toolchain ex. *arm-linux-gnueabi-*
+
 **DTB_FILE** - name of the DTB file in kernel tree arch/$ARCH/boot/dts. ex. *zynq-zturn-myir.dtb*
+
 **KERNEL_IMAGE** - the target for the kernel Makefile. ex. *uImage*. defaults to zImage
+
 **KERNEL_MAKE_EXTRA** - extra stuff for kernel compiling, ex. *UIMAGE_LOADADDR=0x8000*
+
 **KCONFIG** - optional file name for the kernel config. If present the scirpts will automatically configure the kernel when required. The file name is searched in the top level of the kernel tree. If a git-branch specific file (siffixed with -<branch>) is present, then it takes precendence.
 
 ssh stuff
+
 **SSH_REMOTE_USER** - self explanatory :)
+
 **SSH_REMOTE_PASSWORD** - self explanatory :)
+
 **REMOTE_MOD_PATH** - remote path for moudule (.ko) upload
 
 ethernet config
+
 **ETH_LOCAL_IFACE** - specifies the local ethernet interface to use. ex. *eth0*
+
 **ETH_LOCAL_ADDR** - if defined, **assignes** the given IP to the local ethernet iface
+
 **ETH_MASK** - needed when ETH_LOCAL_ADDR is specified
+
 **ETH_REMOTE_ADDR** - specifies the target IP address. U-Boot is forced via serial to use this address, but it is assumed that the target filesystem already configures the interface for it.
 
 u-boot addresses
+
 **UBOOT_IMAGE_LOADADDR** - self explanatory. ex. *0x01000000*
+
 **UBOOT_DTB_LOADADDR** - self explanatory. ex. *0x100*
+
 **UBOOT_FPGA_LOADADDR** - u-boot temp storage for FPGA bitstream. ex. *0x4000000*
+
 **UBOOT_PRE_CMD** - optional preliminary command to give to u-boot, ex. *usb start*
 
 
