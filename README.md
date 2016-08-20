@@ -108,7 +108,7 @@ They are basically treated as bash variables assignes.
 
 **REMOTE_MOD_PATH** - remote path for moudule (.ko) upload
 
-ethernet config
+### ethernet config ###
 
 **ETH_LOCAL_IFACE** - specifies the local ethernet interface to use. ex. *eth0*
 
