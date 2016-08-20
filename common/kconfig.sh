@@ -1,9 +1,10 @@
 #!/bin/bash
 
 BCK_FILE=config_bck
-LAST_TARGET_FILE=last_target
+LAST_CONFIG_FILE=last_config
 
 source $EMB_LINUX_SCRIPTDIR_PATH/common/colorecho.sh
+source $EMB_LINUX_SCRIPTDIR_PATH/common/git.sh
 
 function configure() {
     if [ -f .config ]; then
@@ -12,8 +13,17 @@ function configure() {
     fi
 
     cp $KCONFIG .config
-    echo $TARGET_NAME > $LAST_TARGET_FILE
+    echo $KCONFIG > $LAST_CONFIG_FILE
 }
+
+parse_git_branch
+#look for branch-specific config
+if [ x$GIT_BRANCH != x ]; then
+    GITKCONFIG=$KCONFIG-$GIT_BRANCH
+    if [ -f $GITKCONFIG ]; then
+	KCONFIG=$GITKCONFIG
+    fi
+fi
 
 if [ x$KCONFIG == x ]; then
     colorecho $YELLOW always using current config
@@ -32,7 +42,7 @@ if [ ! -f .config ]; then
 fi
 
 # check if the target is the same
-if [ ! -f $LAST_TARGET_FILE ] || [ $TARGET_NAME != `cat $LAST_TARGET_FILE` ]; then
+if [ ! -f $LAST_CONFIG_FILE ] || [ $KCONFIG != `cat $LAST_CONFIG_FILE` ]; then
     # different target
     colorecho $YELLOW "Changing kernel config ($KCONFIG)!"
     configure
@@ -42,7 +52,7 @@ fi
 #same target, check if cfg changed
 diff .config $KCONFIG > /dev/null
 if [ $? != 0 ]; then
-    colorecho $YELLOW Kernel configuration mismatch! Keeping yours
+    colorecho $YELLOW Kernel configuration mismatch! Keeping yours..
     colorecho $YELLOW You may want to update $KCONFIG
     exit 0
 fi
