@@ -16,6 +16,8 @@ export TARGET_NAME=`basename $CFG_FILE | rev | cut -f 2- -d . | rev`
 export SSH_REMOTE_PORT=22
 #set default to zImage for backward compat
 export KERNEL_IMAGE=zImage
+#set default to bootz for backward compat
+export BOOT_CMD=bootz
 # trick: read command will continue to make the loop
 # iterate as long as there are lines terminating with \n.
 # to get last line, if there is no a \n we must check

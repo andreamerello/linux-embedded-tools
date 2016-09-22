@@ -96,6 +96,8 @@ They are basically treated as bash variables assignes.
 
 **KERNEL_IMAGE** - the target for the kernel Makefile. ex. *uImage*. defaults to zImage
 
+**BOOT_CMD** - the boot command for u-boot, ex. *booti*. defaults to bootz
+
 **KERNEL_MAKE_EXTRA** - extra stuff for kernel compiling, ex. *UIMAGE_LOADADDR=0x8000*
 
 **KCONFIG** - optional file name for the kernel config. If present the scirpts will automatically configure the kernel when required. The file name is searched in the top level of the kernel tree. If a git-branch specific file (siffixed with -<branch>) is present, then it takes precendence.
