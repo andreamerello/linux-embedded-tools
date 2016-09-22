@@ -14,6 +14,8 @@ fi
 export TARGET_NAME=`basename $CFG_FILE | rev | cut -f 2- -d . | rev`
 #set default for backward compatibility
 export SSH_REMOTE_PORT=22
+#set default to zImage for backward compat
+export KERNEL_IMAGE=zImage
 # trick: read command will continue to make the loop
 # iterate as long as there are lines terminating with \n.
 # to get last line, if there is no a \n we must check
