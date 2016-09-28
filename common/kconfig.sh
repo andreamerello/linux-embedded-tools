@@ -18,19 +18,19 @@ function configure() {
 
 parse_git_branch
 #look for branch-specific config
-if [ x$GIT_BRANCH != x ]; then
-    GITKCONFIG=$KCONFIG-$GIT_BRANCH
-    if [ -f $GITKCONFIG ]; then
-	KCONFIG=$GITKCONFIG
+if [ x"$GIT_BRANCH" != x ]; then
+    GITKCONFIG=$KCONFIG-"$GIT_BRANCH"
+    if [ -f "$GITKCONFIG" ]; then
+	KCONFIG="$GITKCONFIG"
     fi
 fi
 
-if [ x$KCONFIG == x ]; then
+if [ x"$KCONFIG" == x ]; then
     colorecho $YELLOW always using current config
     exit 0
 fi
 
-if [ ! -f $KCONFIG ]; then
+if [ ! -f "$KCONFIG" ]; then
     colorecho $RED Config $KCONFIG not found!
     exit -1
 fi
@@ -42,7 +42,7 @@ if [ ! -f .config ]; then
 fi
 
 # check if the target is the same
-if [ ! -f $LAST_CONFIG_FILE ] || [ $KCONFIG != `cat $LAST_CONFIG_FILE` ]; then
+if [ ! -f $LAST_CONFIG_FILE ] || [ "$KCONFIG" != `cat $LAST_CONFIG_FILE` ]; then
     # different target
     colorecho $YELLOW "Changing kernel config ($KCONFIG)!"
     configure
@@ -50,7 +50,7 @@ if [ ! -f $LAST_CONFIG_FILE ] || [ $KCONFIG != `cat $LAST_CONFIG_FILE` ]; then
 fi
 
 #same target, check if cfg changed
-diff .config $KCONFIG > /dev/null
+diff .config "$KCONFIG" > /dev/null
 if [ $? != 0 ]; then
     colorecho $YELLOW Kernel configuration mismatch! Keeping yours..
     colorecho $YELLOW You may want to update $KCONFIG
