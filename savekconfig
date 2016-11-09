@@ -1,0 +1,7 @@
+#!/bin/bash
+
+source $EMB_LINUX_SCRIPTDIR_PATH/common/load_cfg.sh
+source $EMB_LINUX_SCRIPTDIR_PATH/common/kconfig_common.sh
+
+backup $KCONFIG
+cp .config $KCONFIG
