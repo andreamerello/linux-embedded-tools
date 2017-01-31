@@ -1,0 +1,10 @@
+#!/bin/bash
+
+source $EMB_LINUX_SCRIPTDIR_PATH/common/load_cfg.sh
+source $EMB_LINUX_SCRIPTDIR_PATH/common/tty_screen.sh
+
+# bha, maybe someone, somewhere, will need somewhat like this..
+# ..or probably something better than this crap..
+sleep 0.2
+
+tty_send_file `realpath "$2"`

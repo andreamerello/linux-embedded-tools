@@ -8,6 +8,15 @@ tty_put() {
     screen -S $TARGET_NAME -X stuff "$1"
 }
 
+tty_exec() {
+    screen -S $TARGET_NAME -X exec "$@"
+}
+
+tty_send_file() {
+    screen -S $TARGET_NAME -X readreg p "$1"
+    screen -S $TARGET_NAME -X paste p
+}
+
 if ! find_screen $TARGET_NAME; then
     sudo chmod 777 $TTY_DEV
     screen -h 10000 -d -m -S $TARGET_NAME $TTY_DEV $TTY_BAUD
