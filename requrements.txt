@@ -1,0 +1,2 @@
+#note, tftpserver may be run as root.. you may need sudo pip install
+netifaces
