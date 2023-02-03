@@ -1,0 +1,47 @@
+#!/bin/bash
+
+source $EMB_LINUX_SCRIPTDIR_PATH/common/load_cfg.sh
+source $EMB_LINUX_SCRIPTDIR_PATH/common/tty_screen.sh
+source $EMB_LINUX_SCRIPTDIR_PATH/common/ip.sh
+$EMB_LINUX_SCRIPTDIR_PATH/common/tftp_server.sh
+# bha, maybe someone, somewhere, will need somewhat like this..
+# ..or probably something better than this crap..
+sleep 0.2
+
+if [ $# != 3 ]; then
+
+    echo "usage:"
+    echo "$0 [<bin> <offset>]"
+
+    exit -1
+fi
+
+IMAGE=$2
+OFFS=$3
+
+SIZE=`stat -c %s $IMAGE`
+ALIGN=65536
+
+# NOTE: u-boot (2017.5) erase command need properly aligned len.
+# for example on my Z-Turn it fails until is rounded to
+# some stride (256?)
+#
+# to round a number n to the k stride
+# (n + k - 1) / k * k
+ERASE_SIZE=$((($SIZE + $ALIGN -1) / $ALIGN * $ALIGN))
+
+# uboot (2017.5) seems to need hex numbers
+ERASE_SIZE_HEX=0x`printf %x $ERASE_SIZE`
+SIZE_HEX=0x`printf %x $SIZE`
+OFFS_HEX=0x`printf %x $OFFS`
+
+UBOOT=$EMB_LINUX_SCRIPTDIR_PATH/common/uboot_put.sh
+
+UBOOT_INIT_TFTP="setenv ipaddr $ETH_REMOTE_ADDR"
+UBOOT_INIT_TFTP2="setenv serverip $ETH_LOCAL_ADDR"
+UBOOT_LOAD_IMAGE="tftpboot $UBOOT_IMAGE_LOADADDR $ETH_LOCAL_ADDR:$IMAGE"
+UBOOT_SF_INIT="sf probe"
+UBOOT_ERASE_QSPI="sf erase $OFFS_HEX $ERASE_SIZE_HEX"
+UBOOT_FLASH_QSPI="sf write $UBOOT_IMAGE_LOADADDR $OFFS_HEX $SIZE_HEX"
+
+$UBOOT "$UBOOT_PRE_CMD;$UBOOT_INIT_TFTP;$UBOOT_INIT_TFTP2;$UBOOT_LOAD_IMAGE;$UBOOT_SF_INIT;$UBOOT_ERASE_QSPI;$UBOOT_FLASH_QSPI"
